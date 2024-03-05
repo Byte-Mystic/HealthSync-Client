@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  /* line-height: 0; */
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+:root{
+  --primary-color: #27374D;
+  --secondary-color: #DDE6ED;
+  --tertiary-color: #526D82;
+  --quad-color: #9DB2BF;
+}
+
+/* Generic CSS */
+
+/* Input Field */
+.input-field{
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  outline: 1px solid var(--primary-color) ;
+}
+
+/* Button */
+.btn{
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  box-shadow: 2px 4px 4px 2px rgba(0,0,0, 0.2);
+  transition: ease-in-out;
+  transition-duration: 300ms;
+  transition-delay: 75ms;
+}
+
+.active-btn{
+  color: white;
+  background-color: var(--tertiary-color);
+}
+
+.disabled-btn{
+  color: var(--quad-color);
+  background-color: var(--secondary-color);
+}
+
+.btn:hover{
+  transform: scale(0.98);
+}
