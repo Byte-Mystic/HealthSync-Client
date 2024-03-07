@@ -1,4 +1,4 @@
-/* Sign In */
+/* Sign Up */
 
 .sign-up-background{
     background: url("./assets/bg-2.jpg") no-repeat;
@@ -10,5 +10,20 @@
     .sign-up-background{
         border-top-left-radius: 8rem;
         border-bottom-left-radius: 7rem;
+    }    
+}
+
+/* LogIn */
+
+.login-background{
+    background: url("./assets/bg-1.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@media screen and (min-width: 768px) {
+    .login-background{
+        border-top-right-radius: 8rem;
+        border-bottom-right-radius: 7rem;
     }    
 }
