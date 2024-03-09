@@ -6,12 +6,12 @@
     background-position: center;
 }
 
-@media screen and (min-width: 768px) {
-    .sign-up-background{
-        border-top-left-radius: 8rem;
-        border-bottom-left-radius: 7rem;
-    }    
-}
+/* @media screen and (min-width: 768px) { */
+/*     .sign-up-background{ */
+/*         border-top-left-radius: 8rem; */
+/*         border-bottom-left-radius: 7rem; */
+/*     }     */
+/* } */
 
 /* LogIn */
 
@@ -21,9 +21,9 @@
     background-position: center;
 }
 
-@media screen and (min-width: 768px) {
-    .login-background{
-        border-top-right-radius: 8rem;
-        border-bottom-right-radius: 7rem;
-    }    
-}
+/* @media screen and (min-width: 768px) { */
+/*     .login-background{ */
+/*         border-top-right-radius: 8rem; */
+/*         border-bottom-right-radius: 7rem; */
+/*     }     */
+/* } */

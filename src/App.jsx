@@ -1,16 +1,25 @@
 import React from "react";
 import "./App.css";
-import SignUp from "../templates/SignInPage/SignUp/signUp";
-import Login from "../templates/SignInPage/Login/login";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {SignUp, Login} from "../templates/SignInPage"
 import Main from "../components/LeftSideBar/main";
 
 const App = () => {
   return (
-    <div className="bg-neutral-900">
-      {/* <SignUp /> */}
-      {/* <Login /> */}
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Main />} />
+        <Route path="/register" element={<SignUp/>} />
+        <Route path="/login" element={<Login/>} />
+        {
+          /* <div className="bg-neutral-900">
+      {/* <SignUp />
+      {/* <Login />
       <Main />
-    </div>
+    </div> */
+        }
+      </Routes>
+    </BrowserRouter>
   );
 };
 

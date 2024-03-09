@@ -1,14 +1,57 @@
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { signUpSuccess } from "../../../src/features/user/userSlice";
 
 const SignUp = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", { username, email, password });
+    if (
+      !formData.username || !formData.email || !formData.password2 ||
+      !formData.password
+    ) {
+      console.log(formData);
+      console.log("Please fill in all the required fields.");
+      return;
+    }
+    if (formData.password !== formData.password2) {
+      console.log("Password do not match.");
+      return;
+    }
+    try {
+      const res = await fetch("/api/user/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok === false) {
+        dispatch(signUpFailure(data));
+        if (data.password) {
+          console.log("Password length > 8");
+        } else if (data.email) {
+          console.log("Email Already Exists");
+        }
+        return;
+      }
+      dispatch(signUpSuccess(data));
+      console.log("User Created Successfully.");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -20,7 +63,9 @@ const SignUp = () => {
             Already An Existing User?
           </p>
           <p className="mr-1 text-lg font-bold text-gray-500 hover:tracking-wide hover:text-slate-700 transition-all duration-500 delay-75 cursor-pointer">
-            Login
+            <Link to="/login">
+              Login
+            </Link>
           </p>
         </span>
         <form
@@ -31,30 +76,38 @@ const SignUp = () => {
             Sign Up.
           </h1>
           <input
+            id="username"
             type="text"
-            placeholder="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+            onChange={handleChange}
             className="w-1/2 input-field"
-            required
           />
           <input
+            id="email"
             type="text"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            onChange={handleChange}
             className="w-1/2 input-field"
-            required
           />
           <input
+            id="password"
             type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your Password"
+            onChange={handleChange}
             className="w-1/2 input-field"
-            required
           />
-          <button className="w-1/2 btn active-btn" type="submit">
+          <input
+            id="password2"
+            type="password"
+            placeholder="Re-enter Your Password"
+            onChange={handleChange}
+            className="w-1/2 input-field"
+          />
+          <button
+            className="w-1/2 btn active-btn"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Create Account
           </button>
           <p className="text-gray-400">OR</p>

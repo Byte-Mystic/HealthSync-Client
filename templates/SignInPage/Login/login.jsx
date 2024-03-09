@@ -1,13 +1,49 @@
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa6";
+import { jwtDecode } from "jwt-decode";
+import {useSelector, useDispatch} from "react-redux"
+import { Link, useNavigate } from "react-router-dom";
+import { signInSuccess, signInFailure, signInStart } from "../../../src/features/user/userSlice";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const { loading, error} = useSelector((state) => state)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", { email, password });
+
+    if (!formData.email || !formData.password) {
+      console.log("Please fill in all the required fields.");
+      return;
+    }
+    try {
+      dispatch(signInStart());
+      const res = await fetch("/api/user/token/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok === false) {
+        dispatch(signInFailure(data));
+        return;
+      }
+      const decodedToken = jwtDecode;
+    } catch (err) {
+      dispatch(signInFailure(err.message));
+      return; 
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
   };
 
   return (
@@ -20,33 +56,36 @@ const Login = () => {
             Still Haven't Logged In Yet?
           </p>
           <p className="mr-1 text-lg font-bold text-gray-500 hover:tracking-wide hover:text-slate-700 transition-all duration-500 delay-75 cursor-pointer">
-            SignUp
+            <Link to="/register">
+              SignUp
+            </Link>
           </p>
         </span>
-        <form
-          onSubmit={handleSubmit}
-          className="w-full h-full flex flex-col items-center justify-center gap-4"
-        >
+        <div className="w-full h-full flex flex-col items-center justify-center gap-4">
           <h1 className="font-bold text-5xl max-md:text-3xl text-slate-700">
             LogIn.
           </h1>
           <input
+            id="email"
             type="text"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            onChange={handleChange}
             className="w-1/2 input-field"
             required
           />
           <input
+            id="password"
             type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            onChange={handleChange}
             className="w-1/2 input-field"
             required
           />
-          <button className="w-1/2 btn active-btn" type="submit">
+          <button
+            className="w-1/2 btn active-btn"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Log In
           </button>
           <p className="text-gray-400">OR</p>
@@ -54,7 +93,7 @@ const Login = () => {
             Sign in With
             <FaGoogle className="ml-2" />
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
