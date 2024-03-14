@@ -7,7 +7,7 @@ import { FaRegEye, FaBrain } from "react-icons/fa";
 
 const Main = () => {
   return (
-    <div className="h-screen pt-8 pb-6 px-4 flex flex-col justify-between w-1/4">
+    <div className="py-6 px-4 flex flex-col justify-between">
       {/* Brand */}
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center">
