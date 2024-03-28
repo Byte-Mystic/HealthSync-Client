@@ -2,6 +2,7 @@ import React from "react";
 import Main from "../LeftSideBar/main";
 import ChatHistory from "../Chats/chatHistory";
 import { FaGripLines } from "react-icons/fa6";
+import Chat from "../Chats/chat";
 
 // const Dashboard = () => {
 //   return (
@@ -44,14 +45,26 @@ const Dashboard = () => {
         <span className="flex items-center justify-end lg:hidden">
           <FaGripLines className="text-2xl text-gray-500" />
         </span>
-        <div className="w-full flex flex-col gap-1 text-center lg:w-3/4 lg:pt-8">
+        {/* <div className="h-full w-full flex flex-col gap-1 text-center lg:w-3/4 lg:pt-8">
           <h1 className="font-bold text-2xl text-white">
             Unlock the power of AI
           </h1>
           <p className="text-sm font-semibold text-gray-500">
             Chat with the smartest AI - Experience the power of AI with us
           </p>
-        </div>
+          <div className="h-full p-6 flex flex-col gap-4">
+            <div className="h-full border border-white w-full">1</div>
+            <form className="h-16 w-full px-6 flex justify-between items-center border-2 border-neutral-600 rounded-full">
+              <input
+                type="text"
+                className="w-full border-none outline-none bg-transparent text-white text-sm font-medium placeholder:font-normal placeholder:text-neutral-400"
+                placeholder="Ask HealthSync anything"
+              />
+              <RiVoiceprintLine className="text-2xl text-neutral-700 hover:text-sky-600 cursor-pointer transition ease-in duration-200" />
+            </form>
+          </div>
+        </div> */}
+        <Chat />
         <div className="width-30 h-full py-6 flex flex-col border-l border-neutral-600 max-lg:hidden">
           <div className="h-12 flex items-center justify-between">
             {/* <img
