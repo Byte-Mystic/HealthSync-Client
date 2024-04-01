@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { RiDeleteBin5Line, RiAddFill } from "react-icons/ri";
 
 // const ChatHistory = () => {
@@ -25,6 +25,12 @@ import { RiDeleteBin5Line, RiAddFill } from "react-icons/ri";
 // };
 
 const ChatHistory = () => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleCheck = (e) => {
+    setIsSelected(e.target.checked);
+  };
+
   return (
     <div className="h-full w-full pt-6 px-6 flex flex-col border-t border-neutral-600">
       <div className="flex items-center justify-between">
@@ -36,7 +42,27 @@ const ChatHistory = () => {
         </span>
         <RiDeleteBin5Line className="text-xl text-neutral-500 transition ease-in-out duration-300 delay-75 hover:text-red-600 cursor-pointer" />
       </div>
-      <div className="height-90 my-4 border border-white">1</div>
+      <div className="h-96 my-4 flex flex-col items-center gap-4 overflow-y-scroll scrollbar-none">
+        <div className="flex items-center justify-center gap-2">
+          <label className="self-start">
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              checked={isSelected}
+              onChange={handleCheck}
+            />
+          </label>
+          <span
+            className={`text-xs font-medium transition ease-in-out duration-300 delay-75 ${
+              isSelected ? "text-neutral-600" : "text-neutral-300"
+            }`}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia,
+            cumque.
+          </span>
+        </div>
+      </div>
       <button className="p-3 flex items-center justify-center bg-sky-500 rounded-lg transition ease-in-out duration-300 delay-75 hover:bg-sky-700">
         <RiAddFill className="text-lg text-white" />
         <p className="ml-2 font-medium text-sm text-white">New Chat</p>
