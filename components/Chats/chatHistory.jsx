@@ -42,7 +42,7 @@ const ChatHistory = () => {
         </span>
         <RiDeleteBin5Line className="text-xl text-neutral-500 transition ease-in-out duration-300 delay-75 hover:text-red-600 cursor-pointer" />
       </div>
-      <div className="h-96 my-4 flex flex-col gap-4 overflow-y-scroll scrollbar-none">
+      <div className="h-full my-4 flex flex-col gap-4 overflow-y-scroll scrollbar-none">
         <div className="flex items-center justify-start gap-2">
           <label className="self-start">
             <input
@@ -55,7 +55,9 @@ const ChatHistory = () => {
           </label>
           <span
             className={`text-xs font-medium transition ease-in-out duration-300 delay-75 ${
-              isSelected ? "text-neutral-600" : "text-neutral-300"
+              isSelected
+                ? "text-neutral-600 line-through decoration-red-500"
+                : "text-neutral-300"
             }`}
           >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia,
