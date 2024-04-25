@@ -1,32 +1,66 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiDeleteBin5Line, RiAddFill } from "react-icons/ri";
-
-// const ChatHistory = () => {
-//   return (
-//     <div className="h-full pt-2 pb-6 px-4 flex flex-col justify-between">
-//       <div className="h-3/4 flex flex-col">
-//         <div className="h-1/5 flex items-center justify-between">
-//           <span className="flex items-center justify-center">
-//             <p className="text-xs font-medium text-neutral-500">Chat history</p>
-//             <span className="ml-2 px-2 py-1 text-xs rounded-xl bg-neutral-700 text-neutral-400">
-//               25/100
-//             </span>
-//           </span>
-//           <RiDeleteBin4Line className="text-xl text-neutral-500 transition ease-in-out duration-300 delay-75 hover:text-red-600 cursor-pointer" />
-//         </div>
-//         <div className="h-4/5"></div>
-//       </div>
-//       <button className="p-2 flex items-center justify-center bg-sky-500 rounded-lg transition ease-in-out duration-300 delay-75 hover:bg-sky-600 ">
-//         <RiAddFill className="text-lg text-white" />
-//         <p className="ml-2 font-medium text-sm text-white">New Chat</p>
-//       </button>
-//     </div>
-//   );
-// };
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ChatHistory = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [isSelected, setIsSelected] = useState(false);
+  const [conversations, setConversations] = useState([]);
+  const [newChat, setNewChat] = useState(false);
+  const [deleteChat, setDeleteChat] = useState(false);
+  const navigate = useNavigate()
 
+  const handleCreateNewChat = async () => {
+    try {
+      const newChatTopic = prompt("Enter the topic for new Chat: ");
+      if (newChatTopic === null) {
+        return;
+      }
+      setNewChat(true);
+      const createChatResponse = await fetch("/api/chat/create-new-chat/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${currentUser.access}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ topic: newChatTopic }),
+      });
+      if (!createChatResponse.ok) {
+        throw new Error(`HTTP error! status: ${createChatResponse.status}`);
+      }
+      const createdChat = await createChatResponse.json();
+      setConversations((prevConversations) => [
+        ...prevConversations,
+        createdChat,
+      ]);
+    } catch (error) {
+      console.error("Error Creating new chat: ", error);
+    } finally {
+      setNewChat(false);
+    }
+  };
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        const listChatResponse = await fetch("/api/chat/list-chats/", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${currentUser.access}`
+          }
+        })
+        if (!listChatResponse.ok) {
+          throw new Error(`HTTP error! Status: ${listChatResponse.status}`);
+        }
+
+        const listChatsData = await listChatResponse.json();
+        setConversations(listChatsData);
+      }catch(error){
+        console.error("Error fetching chat: ", error)
+      }
+    };
+    fetchData();
+  }, [newChat, deleteChat])
   const handleCheck = (e) => {
     setIsSelected(e.target.checked);
   };
@@ -37,31 +71,32 @@ const ChatHistory = () => {
         <span className="flex items-center justify-between gap-2">
           <p className="font-medium text-sm text-neutral-500">Chat history</p>
           <p className="py-1 px-2 font-medium rounded-2xl text-xs text-gray-300 bg-neutral-600">
-            25/100
+            {conversations.length}/100
           </p>
         </span>
         <RiDeleteBin5Line className="text-xl text-neutral-500 transition ease-in-out duration-300 delay-75 hover:text-red-600 cursor-pointer" />
       </div>
       <div className="h-96 my-4 flex flex-col gap-4 overflow-y-scroll scrollbar-none">
-        <div className="flex items-center justify-start gap-2">
-          <label className="self-start">
-            <input
-              type="checkbox"
-              name=""
-              id=""
-              checked={isSelected}
-              onChange={handleCheck}
-            />
-          </label>
-          <span
-            className={`text-xs font-medium transition ease-in-out duration-300 delay-75 ${
-              isSelected ? "text-neutral-600" : "text-neutral-300"
-            }`}
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia,
-            cumque.
-          </span>
-        </div>
+        {conversations?.map((conversation, key) => (
+          <div key={key} className="flex items-center justify-start gap-2">
+            <label className="self-start">
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                checked={isSelected}
+                onChange={handleCheck}
+              />
+            </label>
+            <span
+              className={`text-xs font-medium transition ease-in-out duration-300 delay-75 ${
+                isSelected ? "text-neutral-600" : "text-neutral-300"
+              }`}
+            >{console.log(conversation)}
+              {conversation.topic}
+            </span>
+          </div>
+        ))}
       </div>
       <button className="p-3 flex items-center justify-center bg-sky-500 rounded-lg transition ease-in-out duration-300 delay-75 hover:bg-sky-700">
         <RiAddFill className="text-lg text-white" />
