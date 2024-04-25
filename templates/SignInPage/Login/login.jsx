@@ -4,12 +4,14 @@ import { jwtDecode } from "jwt-decode";
 import {useSelector, useDispatch} from "react-redux"
 import { Link, useNavigate } from "react-router-dom";
 import { signInSuccess, signInFailure, signInStart } from "../../../src/features/user/userSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { loading, error} = useSelector((state) => state)
+  const { loading, error} = useSelector((state) => state)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,11 +32,17 @@ const Login = () => {
       const data = await res.json();
       if (res.ok === false) {
         dispatch(signInFailure(data));
+        toast.error("Wrong Credentials.");
         return;
       }
-      const decodedToken = jwtDecode;
+      const decodedToken = jwtDecode(data["access"]);
+      data["username"] = decodedToken.username;
+      data["email"] = decodedToken.email;
+      dispatch(signInSuccess(data));
+      navigate("/dashboard");
     } catch (err) {
       dispatch(signInFailure(err.message));
+      console.error(error);
       return; 
     }
   };
@@ -48,6 +56,18 @@ const Login = () => {
 
   return (
     <div className="h-screen flex max-md:flex-col">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        />
       <div className="h-1/3 login-background min-lg:hidden" />
       <div className="h-screen w-screen login-background max-md:hidden" />
       <div className="h-full w-screen flex flex-col">
