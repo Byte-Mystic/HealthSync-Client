@@ -118,16 +118,16 @@ const Chat = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="h-16 w-full px-6 flex justify-between items-center border-2 border-neutral-600 rounded-full"
+          className="w-full px-6 flex justify-between items-center border-2 border-neutral-600 rounded-full"
         >
           <input
             type="text"
-            className="w-full border-none outline-none bg-transparent text-white text-sm font-medium placeholder:font-normal placeholder:text-neutral-400"
+            className="h-16 w-full border-none outline-none bg-transparent text-white text-sm font-medium placeholder:font-normal placeholder:text-neutral-400"
             placeholder="Ask HealthSync anything"
             value={input}
             onChange={handleInputChange}
           />
-          <button className="bg-transparent border-none" type="submit">
+          <button className="bg-transparent ml-2 border-none" type="submit">
             {isInputEmpty ? (
               <RiVoiceprintLine className="text-2xl text-neutral-700 hover:text-sky-600 cursor-pointer transition ease-in duration-200" />
             ) : (

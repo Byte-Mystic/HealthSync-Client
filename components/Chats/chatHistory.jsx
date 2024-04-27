@@ -76,6 +76,7 @@ const ChatHistory = () => {
         </span>
         <RiDeleteBin5Line className="text-xl text-neutral-500 transition ease-in-out duration-300 delay-75 hover:text-red-600 cursor-pointer" />
       </div>
+
       <div className="h-96 my-4 flex flex-col gap-4 overflow-y-scroll scrollbar-none">
         {conversations?.map((conversation, key) => (
           <Link key={key} to={`/dashboard/${conversation.chat_id}`}>
@@ -98,6 +99,7 @@ const ChatHistory = () => {
             </div>
           </Link>
         ))}
+
       </div>
       <button onClick={handleCreateNewChat} className="p-3 flex items-center justify-center bg-sky-500 rounded-lg transition ease-in-out duration-300 delay-75 hover:bg-sky-700">
         <RiAddFill className="text-lg text-white" />
