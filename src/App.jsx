@@ -15,6 +15,7 @@ const App = () => {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/:chatid" element={<Dashboard />} />
           <Route path="/pricingpage" element={<PricingPage />} />
           <Route path="/dragdrop" element={<DragDrop />} />
         </Route>
