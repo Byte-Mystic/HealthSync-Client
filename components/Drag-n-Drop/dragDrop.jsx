@@ -31,7 +31,6 @@ const DragDrop = () => {
   function deleteImage(index) {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
     if (index === 0) setSelectedImage(false);
-    console.log(index);
   }
 
   function onDragOver(event) {
@@ -68,65 +67,73 @@ const DragDrop = () => {
   }
 
   return (
-    <div className="h-screen px-8 flex flex-col items-center justify-center gap-6 border border-black">
-      <div
-        className="w-full h-40 px-4 flex justify-center items-center border-2 border-dashed border-sky-600 rounded-md select-none"
-        onDragOver={onDragOver}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}
-      >
-        {isDragging ? (
-          <span className="transition ease-in-out duration-100 font-medium hover:opacity-60">
-            Drop Images here
-          </span>
-        ) : (
-          <span className="flex items-center justify-center gap-4">
-            <p className="font-medium">Drag & Drop Images here</p>
-            <p className="font-medium text-sm text-neutral-500">or</p>
-            <span
-              className="font-medium transition ease-in-out duration-300 cursor-pointer underline text-purple-800 hover:text-purple-600"
-              role="button"
-              onClick={selectFiles}
-            >
-              Browse
+    <div className="width-70 p-8 flex flex-col items-start justify-evenly overflow-auto max-lg:w-full">
+      <span className="flex flex-col items-start">
+        <h1 className="text-white font-bold text-4xl">OCT</h1>
+        <h3 className="text-gray-500 text-sm">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum,
+          consectetur.
+        </h3>
+      </span>
+      <div className="w-full flex flex-col gap-6 justify-between">
+        <div
+          className="w-full h-40 px-4 flex justify-center items-center border-2 border-dashed border-sky-600 rounded-md select-none"
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
+        >
+          {isDragging ? (
+            <span className="transition ease-in-out duration-100 font-medium hover:opacity-60">
+              Drop Images here
             </span>
-          </span>
-        )}
-        <input
-          type="file"
-          name="file"
-          className="hidden"
-          multiple
-          ref={fileInputRef}
-          onChange={onFileSelect}
-        />
-      </div>
-      {selectedImage && (
-        <div className="h-28 w-full flex justify-start items-start flex-wrap">
-          {images.map((images, index) => (
-            <div className="h-24 w-24 mx-2 relative" key={index}>
+          ) : (
+            <span className="flex items-center justify-center gap-4">
+              <p className="font-medium">Drag & Drop Images here</p>
+              <p className="font-medium text-sm text-neutral-500">or</p>
               <span
-                className="z-50 h-7 w-7 text-center rounded-full bg-red-600 text-white absolute -top-2 -right-4 cursor-pointer text-lg font-bold transition ease-in-out duration-300 delay-75 hover:bg-red-500"
-                onClick={() => deleteImage(index)}
+                className="font-medium transition ease-in-out duration-300 cursor-pointer underline text-purple-800 hover:text-purple-600"
+                role="button"
+                onClick={selectFiles}
               >
-                &times;
+                Browse
               </span>
-              <img
-                src={images.url}
-                alt={images.name}
-                className="object-cover h-full w-full rounded-md border border-black"
-              />
-            </div>
-          ))}
+            </span>
+          )}
+          <input
+            type="file"
+            name="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={onFileSelect}
+          />
         </div>
-      )}
-      <button
-        type="button"
-        onClick={uploadImage}
-        className="w-full px-3 py-2 cursor-pointer outline-none bg-sky-500 hover:bg-sky-600 rounded-md text-white font-medium"
-      >
-        Upload
-      </button>
+        {selectedImage && (
+          <div className="py-4 h-28 w-full flex gap-8 justify-start items-start flex-wrap overflow-y-auto scrollbar-none">
+            {images.map((images, index) => (
+              <div className="h-24 w-24 mx-2 relative" key={index}>
+                <span
+                  className="z-50 h-7 w-7 text-center rounded-full bg-red-600 text-white absolute -top-2 -right-4 cursor-pointer text-lg font-bold transition ease-in-out duration-300 delay-75 hover:bg-red-500"
+                  onClick={() => deleteImage(index)}
+                >
+                  &times;
+                </span>
+                <img
+                  src={images.url}
+                  alt={images.name}
+                  className="object-cover h-full w-full rounded-md"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={uploadImage}
+          className="w-full px-3 py-2 cursor-pointer outline-none bg-sky-500 hover:bg-sky-600 rounded-md text-white font-medium"
+        >
+          Upload
+        </button>
+      </div>
     </div>
   );
 };

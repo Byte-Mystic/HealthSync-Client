@@ -10,20 +10,21 @@ import DragDrop from "../components/Drag-n-Drop/dragDrop";
 
 import Error from "../templates/404/error";
 
-import Home from "../components/Home/Home"
-
+import Home from "../components/Home/Home";
+import MedicalReport from "../components/MedicalReport/medicalReport";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/:chatid" element={<Dashboard />} />
-          <Route path="/pricingpage" element={<PricingPage />} />
-          <Route path="/dragdrop" element={<DragDrop />} />
-        </Route>
-        <Route index element={<Home/>} />
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/:chatid" element={<Dashboard />} />
+        <Route path="/pricingpage" element={<PricingPage />} />
+        <Route path="/dragdrop" element={<DragDrop />} />
+        <Route path="/medicalReport" element={<MedicalReport />} />
+        {/* </Route> */}
+        <Route index element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
 
