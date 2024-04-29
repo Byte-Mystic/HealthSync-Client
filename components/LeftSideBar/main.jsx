@@ -156,15 +156,15 @@ const Main = () => {
               </p>
             </Link>
           </li>
-          <li
-            className={`p-4 flex items-center justify-center rounded-lg ${
-              selected === "mri"
-                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
-                : "bg-transparent"
-            } xl:justify-start cursor-pointer`}
-            onClick={() => handleClick("mri")}
-          >
-            <Link to="/medicalReport" className="flex items-center">
+          <Link to="/medicalReport-mri">
+            <li
+              className={`p-4 flex items-center justify-center rounded-lg ${
+                selected === "mri"
+                  ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+                  : "bg-transparent"
+              } xl:justify-start cursor-pointer`}
+              onClick={() => handleClick("mri")}
+            >
               <FaBrain className="xl:mr-4 text-2xl text-emerald-600" />
               <p
                 className={`font-bold tracking-wide max-xl:hidden ${
@@ -173,8 +173,8 @@ const Main = () => {
               >
                 MRI
               </p>
-            </Link>
-          </li>
+            </li>
+          </Link>
           <li
             className={`p-4 flex items-center justify-center rounded-lg ${
               selected === "mammography"
@@ -183,7 +183,7 @@ const Main = () => {
             } xl:justify-start cursor-pointer`}
             onClick={() => handleClick("mammography")}
           >
-            <Link to="/medicalReport" className="flex items-center">
+            <Link to="/medicalReport-mammo" className="flex items-center">
               <IoFemale className="xl:mr-4 text-2xl text-pink-600" />
               <p
                 className={`font-bold tracking-wide max-xl:hidden ${

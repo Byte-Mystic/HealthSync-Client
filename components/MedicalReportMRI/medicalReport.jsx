@@ -4,7 +4,7 @@ import { FaGripLines } from "react-icons/fa6";
 import DragDrop from "../Drag-n-Drop/dragDrop";
 import ReportHistory from "./reportHistory";
 
-const MedicalReport = () => {
+const MriDashboard = () => {
   return (
     <div className="h-screen w-screen p-6 md:flex md:gap-4 max-md:p-0 bg-neutral-900">
       <div className="width-10 h-full max-md:hidden xl:w-1/5">
@@ -14,7 +14,7 @@ const MedicalReport = () => {
         <span className="flex items-center justify-end lg:hidden">
           <FaGripLines className="text-2xl text-gray-500" />
         </span>
-        <DragDrop isMammo={false} isMri={false} isOct={true}/>
+        <DragDrop isMammo={false} isMri={true} isOct={false}/>
         <div className="width-30 h-full py-6 flex flex-col border-l border-neutral-600 max-lg:hidden">
           <ReportHistory />
         </div>
@@ -23,4 +23,4 @@ const MedicalReport = () => {
   );
 };
 
-export default MedicalReport;
+export default MriDashboard;
