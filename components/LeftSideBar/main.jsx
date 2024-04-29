@@ -4,6 +4,7 @@ import { IoFemale, IoSettingsOutline } from "react-icons/io5";
 import { IoMdSunny, IoMdMoon } from "react-icons/io";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
 import { FaRegEye, FaBrain } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 // const Main = () => {
 //   return (
@@ -99,6 +100,12 @@ import { FaRegEye, FaBrain } from "react-icons/fa";
 // };
 
 const Main = () => {
+  const [selected, setSelected] = useState("chats");
+
+  const handleClick = (option) => {
+    setSelected(option);
+  };
+
   return (
     <div className="h-full flex flex-col gap-6 items-center justify-center xl:gap-0">
       <div className="h-3/4 w-full pt-8 flex flex-col items-center">
@@ -111,33 +118,96 @@ const Main = () => {
           <TbLayoutSidebarLeftExpand className="text-2xl text-gray-500 transition ease-in-out duration-300 delay-75 cursor-pointer hover:text-gray-400" />
         </span>
         <ul className="my-8 xl:w-full list-none overflow-y-scroll scrollbar-none">
-          <li className="p-4 flex items-center justify-center rounded-lg bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)] xl:justify-start cursor-pointer">
-            <GrChat className="xl:mr-4 text-xl -scale-x-100 text-blue-600" />
-            <p className="font-bold text-white tracking-wide max-xl:hidden">
-              Chats
-            </p>
+          <li
+            className={`p-4 flex items-center justify-center rounded-lg ${
+              selected === "chats"
+                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+                : "bg-transparent"
+            } xl:justify-start cursor-pointer`}
+            onClick={() => handleClick("chats")}
+          >
+            <Link to="/dashboard" className="flex items-center">
+              <GrChat className="xl:mr-4 text-xl -scale-x-100 text-blue-600" />
+              <p
+                className={`font-bold tracking-wide max-xl:hidden ${
+                  selected === "chats" ? "text-white" : "text-slate-400"
+                }`}
+              >
+                Chats
+              </p>
+            </Link>
           </li>
-          <li className="p-4 flex items-center justify-center rounded-lg xl:justify-start cursor-pointer">
-            <FaRegEye className="xl:mr-4 text-2xl text-orange-500" />
-            <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200 max-xl:hidden">
-              OCT
-            </p>
+          <li
+            className={`p-4 flex items-center justify-center rounded-lg ${
+              selected === "oct"
+                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+                : "bg-transparent"
+            } xl:justify-start cursor-pointer`}
+            onClick={() => handleClick("oct")}
+          >
+            <Link to="/medicalReport" className="flex items-center">
+              <FaRegEye className="xl:mr-4 text-2xl text-orange-500" />
+              <p
+                className={`font-bold tracking-wide max-xl:hidden ${
+                  selected === "oct" ? "text-white" : "text-slate-400"
+                }`}
+              >
+                OCT
+              </p>
+            </Link>
           </li>
-          <li className="p-4 flex items-center justify-center rounded-lg xl:justify-start cursor-pointer">
-            <FaBrain className="xl:mr-4 text-2xl text-emerald-600" />
-            <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200 max-xl:hidden">
-              MRI
-            </p>
+          <li
+            className={`p-4 flex items-center justify-center rounded-lg ${
+              selected === "mri"
+                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+                : "bg-transparent"
+            } xl:justify-start cursor-pointer`}
+            onClick={() => handleClick("mri")}
+          >
+            <Link to="/medicalReport" className="flex items-center">
+              <FaBrain className="xl:mr-4 text-2xl text-emerald-600" />
+              <p
+                className={`font-bold tracking-wide max-xl:hidden ${
+                  selected === "mri" ? "text-white" : "text-slate-400"
+                }`}
+              >
+                MRI
+              </p>
+            </Link>
           </li>
-          <li className="p-4 flex items-center justify-center rounded-lg xl:justify-start cursor-pointer">
-            <IoFemale className="xl:mr-4 text-2xl text-pink-600" />
-            <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200 max-xl:hidden">
-              Mammography
-            </p>
+          <li
+            className={`p-4 flex items-center justify-center rounded-lg ${
+              selected === "mammography"
+                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+                : "bg-transparent"
+            } xl:justify-start cursor-pointer`}
+            onClick={() => handleClick("mammography")}
+          >
+            <Link to="/medicalReport" className="flex items-center">
+              <IoFemale className="xl:mr-4 text-2xl text-pink-600" />
+              <p
+                className={`font-bold tracking-wide max-xl:hidden ${
+                  selected === "mammography" ? "text-white" : "text-slate-400"
+                }`}
+              >
+                Mammography
+              </p>
+            </Link>
           </li>
-          <li className="p-4 flex items-center justify-center rounded-lg xl:justify-start cursor-pointer">
+          <li
+            className={`p-4 flex items-center justify-center rounded-lg ${
+              selected === "settings"
+                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+                : "bg-transparent"
+            } xl:justify-start cursor-pointer`}
+            onClick={() => handleClick("settings")}
+          >
             <IoSettingsOutline className="xl:mr-4 text-2xl text-purple-500" />
-            <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200 max-xl:hidden">
+            <p
+              className={`font-bold tracking-wide max-xl:hidden ${
+                selected === "settings" ? "text-white" : "text-slate-400"
+              }`}
+            >
               Settings
             </p>
           </li>
