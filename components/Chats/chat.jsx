@@ -91,8 +91,8 @@ const Chat = () => {
       <p className="text-sm font-semibold text-gray-500">
         Chat with the smartest AI - Experience the power of AI with us
       </p>
-      <div className="h-full p-6 flex flex-col gap-4 overflow-auto">
-        <div className="h-4/5 w-full flex flex-col-reverse overflow-y-scroll scrollbar-none">
+      <div className="h-full p-6 flex flex-col justify-between gap-4 overflow-auto">
+        <div className="h-full w-full flex flex-col-reverse overflow-y-scroll scrollbar-none">
           {conversation.length > 0 ? (
             conversation
               .slice()
