@@ -9,7 +9,6 @@ import {useSelector} from "react-redux"
 const MammoDashboard = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false)
-  const [response, setResponse] = useState(null)
 
   const override = {
     display: "block",
