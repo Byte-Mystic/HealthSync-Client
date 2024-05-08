@@ -1,110 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GrChat } from "react-icons/gr";
 import { IoFemale, IoSettingsOutline } from "react-icons/io5";
 import { IoMdSunny, IoMdMoon } from "react-icons/io";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
 import { FaRegEye, FaBrain } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-// const Main = () => {
-//   return (
-//     <div className="py-6 px-4 flex flex-col justify-between">
-//       {/* Brand */}
-//       <div className="flex items-center justify-between">
-//         <div className="flex items-center justify-center">
-//           <img src="" alt="" />
-//           <h1 className="font-bold text-2xl tracking-wider text-white">
-//             HealthSync
-//           </h1>
-//         </div>
-//         <TbLayoutSidebarRightExpandFilled className="text-3xl text-gray-300" />
-//       </div>
-
-//       {/* List Options */}
-//       <div className="my-4 p-4 h-full flex flex-col justify-between">
-//         <div className="h-full my-4">
-//           <ul className="list-none h-60 overflow-y-scroll scrollbar-none">
-//             <li className="gap-6 my-2 px-4 py-3 w-full flex items-center justify-start rounded-lg bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]">
-//               <GrChat className="text-xl -scale-x-100 text-blue-600" />
-//               <p className="font-bold text-white tracking-wide">Chats</p>
-//             </li>
-//             <li className="gap-6 mb-2 px-4 py-3 w-full flex items-center justify-start rounded-lg cursor-pointer">
-//               <FaRegEye className="text-2xl text-orange-500" />
-//               <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200">
-//                 OCT
-//               </p>
-//             </li>
-//             <li className="gap-6 mb-2 px-4 py-3 w-full flex items-center justify-start rounded-lg cursor-pointer">
-//               <FaBrain className="text-2xl text-emerald-600" />
-//               <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200">
-//                 MRI
-//               </p>
-//             </li>
-//             <li className="gap-6 mb-2 px-4 py-3 w-full flex items-center justify-start rounded-lg cursor-pointer">
-//               <IoFemale className="text-2xl text-pink-600" />
-//               <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200">
-//                 Mammography
-//               </p>
-//             </li>
-//             <li className="gap-6 mb-2 px-4 py-3 w-full flex items-center justify-start rounded-lg cursor-pointer">
-//               <IoSettingsOutline className="text-2xl text-purple-500" />
-//               <p className="font-bold text-slate-400 tracking-wide hover:text-white transition ease-in-out duration-200">
-//                 Settings
-//               </p>
-//             </li>
-//           </ul>
-//         </div>
-//         <hr className="border-slate-600" />
-//       </div>
-
-//       {/* User Details */}
-//       <div className="flex flex-col">
-//         <div className="px-4 py-2 flex flex-col bg-neutral-800 rounded-lg">
-//           <div className="mt-4 flex items-center justify-between gap-4">
-//             <div className="flex items-center justify-center text-white">
-//               <img
-//                 src="../../src/assets/bg-2.jpg"
-//                 className="h-10 w-10 mr-4 object-cover rounded-full"
-//                 alt=""
-//               />
-//               <span className="flex flex-col">
-//                 <p className="text-xs font-medium">Alexander Arnold</p>
-//                 <p className="text-xs font-medium">alexarnol@gmail.com</p>
-//               </span>
-//             </div>
-//             <span className="px-4 py-1 text-xs bg-green-400 font-semibold rounded-md">
-//               Free
-//             </span>
-//           </div>
-//           <button className="mt-8 mb-2 p-2 text-sm text-white font-semibold rounded-lg outline outline-2 outline-neutral-500 hover:bg-neutral-600 hover:outline-none transition ease-in-out duration-300 delay-75 hover:scale-95">
-//             Upgrade To Pro
-//           </button>
-//         </div>
-//         <div className="py-2 mt-4 flex items-center justify-evenly rounded-xl bg-neutral-800">
-//           <button className="group flex items-center justify-center px-6 py-2 rounded-lg transition duration-300 ease-in-out hover:bg-gray-300 hover:text-yellow-500 ">
-//             <IoMdSunny className="text-2xl text-gray-600 group-hover:text-orange-500" />
-//             <p className="ml-2 font-semibold text-gray-600 group-hover:text-orange-500">
-//               Light
-//             </p>
-//           </button>
-//           <button className="group flex items-center justify-center px-6 py-2 rounded-lg transition duration-300 ease-in-out hover:bg-gray-800 hover:text-gray-300">
-//             <IoMdMoon className="text-2xl text-gray-600 group-hover:text-gray-300" />
-//             <p className="ml-2 font-semibold text-gray-600 group-hover:text-gray-300">
-//               Dark
-//             </p>
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+import { useSelector } from "react-redux";
 
 const Main = () => {
-  const [selected, setSelected] = useState("chats");
+  const { currentUser } = useSelector((state) => state.user);
+  const [selected, setSelected] = useState("");
 
   const handleClick = (option) => {
     setSelected(option);
   };
+
 
   return (
     <div className="h-full flex flex-col gap-6 items-center justify-center xl:gap-0">
@@ -118,95 +28,81 @@ const Main = () => {
           <TbLayoutSidebarLeftExpand className="text-2xl text-gray-500 transition ease-in-out duration-300 delay-75 cursor-pointer hover:text-gray-400" />
         </span>
         <ul className="my-8 xl:w-full list-none overflow-y-scroll scrollbar-none">
-          <li
-            className={`p-4 flex items-center justify-center rounded-lg ${
-              selected === "chats"
+          <Link to="/dashboard" className="" onClick={() => handleClick("chats")}>
+            <li
+              className={`p-4 flex items-center justify-center rounded-lg ${selected === "chats"
                 ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
                 : "bg-transparent"
-            } xl:justify-start cursor-pointer`}
-            onClick={() => handleClick("chats")}
-          >
-            <Link to="/dashboard" className="flex items-center">
+                } xl:justify-start cursor-pointer`}
+            >
               <GrChat className="xl:mr-4 text-xl -scale-x-100 text-blue-600" />
               <p
-                className={`font-bold tracking-wide max-xl:hidden ${
-                  selected === "chats" ? "text-white" : "text-slate-400"
-                }`}
+                className={`font-bold tracking-wide max-xl:hidden ${selected === "chats" ? "text-white" : "text-slate-400"
+                  }`}
               >
                 Chats
               </p>
-            </Link>
-          </li>
-          <li
-            className={`p-4 flex items-center justify-center rounded-lg ${
-              selected === "oct"
+            </li>
+          </Link>
+          <Link to="/medicalReport" className="" onClick={() => handleClick("oct")}>
+            <li
+              className={`p-4 flex items-center justify-center rounded-lg ${selected === "oct"
                 ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
                 : "bg-transparent"
-            } xl:justify-start cursor-pointer`}
-            onClick={() => handleClick("oct")}
-          >
-            <Link to="/medicalReport" className="flex items-center">
+                } xl:justify-start cursor-pointer`}
+            >
               <FaRegEye className="xl:mr-4 text-2xl text-orange-500" />
               <p
-                className={`font-bold tracking-wide max-xl:hidden ${
-                  selected === "oct" ? "text-white" : "text-slate-400"
-                }`}
+                className={`font-bold tracking-wide max-xl:hidden ${selected === "oct" ? "text-white" : "text-slate-400"
+                  }`}
               >
                 OCT
               </p>
-            </Link>
-          </li>
-          <Link to="/medicalReport-mri">
+            </li>
+          </Link>
+          <Link to="/medicalReport-mri" onClick={() => handleClick("mri")}>
             <li
-              className={`p-4 flex items-center justify-center rounded-lg ${
-                selected === "mri"
-                  ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
-                  : "bg-transparent"
-              } xl:justify-start cursor-pointer`}
-              onClick={() => handleClick("mri")}
+              className={`p-4 flex items-center justify-center rounded-lg ${selected === "mri"
+                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+                : "bg-transparent"
+                } xl:justify-start cursor-pointer`}
             >
               <FaBrain className="xl:mr-4 text-2xl text-emerald-600" />
               <p
-                className={`font-bold tracking-wide max-xl:hidden ${
-                  selected === "mri" ? "text-white" : "text-slate-400"
-                }`}
+                className={`font-bold tracking-wide max-xl:hidden ${selected === "mri" ? "text-white" : "text-slate-400"
+                  }`}
               >
                 MRI
               </p>
             </li>
           </Link>
-          <li
-            className={`p-4 flex items-center justify-center rounded-lg ${
-              selected === "mammography"
+          <Link to="/medicalReport-mammo" className="" onClick={() => handleClick("mammography")}>
+            <li
+              className={`p-4 flex items-center justify-center rounded-lg ${selected === "mammography"
                 ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
                 : "bg-transparent"
-            } xl:justify-start cursor-pointer`}
-            onClick={() => handleClick("mammography")}
-          >
-            <Link to="/medicalReport-mammo" className="flex items-center">
+                } xl:justify-start cursor-pointer`}
+            >
               <IoFemale className="xl:mr-4 text-2xl text-pink-600" />
               <p
-                className={`font-bold tracking-wide max-xl:hidden ${
-                  selected === "mammography" ? "text-white" : "text-slate-400"
-                }`}
+                className={`font-bold tracking-wide max-xl:hidden ${selected === "mammography" ? "text-white" : "text-slate-400"
+                  }`}
               >
                 Mammography
               </p>
-            </Link>
-          </li>
+            </li>
+          </Link>
           <li
-            className={`p-4 flex items-center justify-center rounded-lg ${
-              selected === "settings"
-                ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
-                : "bg-transparent"
-            } xl:justify-start cursor-pointer`}
+            className={`p-4 flex items-center justify-center rounded-lg ${selected === "settings"
+              ? "bg-gradient-to-l from-[#323337] to-[rgba(70,79,111,0.3)]"
+              : "bg-transparent"
+              } xl:justify-start cursor-pointer`}
             onClick={() => handleClick("settings")}
           >
             <IoSettingsOutline className="xl:mr-4 text-2xl text-purple-500" />
             <p
-              className={`font-bold tracking-wide max-xl:hidden ${
-                selected === "settings" ? "text-white" : "text-slate-400"
-              }`}
+              className={`font-bold tracking-wide max-xl:hidden ${selected === "settings" ? "text-white" : "text-slate-400"
+                }`}
             >
               Settings
             </p>
@@ -223,15 +119,15 @@ const Main = () => {
           />
           <span className="w-3/4 flex flex-col items-start justify-start gap-1 max-xl:hidden whitespace-nowrap text-ellipsis overflow-hidden">
             <span className="flex items-center justify-start gap-2">
-              <p className="text-sm font-semibold text-white">
-                Alexander Trent
+              <p className="text-xl font-semibold text-white">
+                {currentUser.username}
               </p>
               <p className="text-xs font-medium text-white bg-green-600 py-1 px-2 rounded-md tracking-wider">
                 Free
               </p>
             </span>
-            <p className="text-xs font-medium text-white">
-              alexandertrent1234@gmail.com
+            <p className="text-xl font-medium text-white">
+              {currentUser.email}
             </p>
           </span>
         </div>

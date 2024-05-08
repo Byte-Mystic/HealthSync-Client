@@ -4,6 +4,11 @@ import { useSelector } from "react-redux";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { RiVoiceprintLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
+import Markdown from 'markdown-parser-react';
+import { ReactTyped } from "react-typed";
+import Moment from 'react-moment';
+// import ClipLoader from "react-spinners/ClipLoader";
+import HashLoader from "react-spinners/HashLoader"
 
 const Chat = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -11,7 +16,7 @@ const Chat = () => {
   const [conversation, setConversation] = useState([]);
   const [isInputEmpty, setIsInputEmpty] = useState(true);
   const [chatHeading, setChatHeading] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { chatid } = useParams();
   const [messageSent, setMessageSent] = useState(false);
 
@@ -53,13 +58,14 @@ const Chat = () => {
     };
     fetchData();
     getChatName();
-  }, [chatid, currentUser.access, messageSent]);
+  }, [chatid, messageSent]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       setInput("");
       setLoading(true);
+
       const response = await fetch(`/api/chat/chat-with-ai/${chatid}`, {
         method: "POST",
         headers: {
@@ -68,7 +74,7 @@ const Chat = () => {
         },
         body: JSON.stringify({ ask: input }),
       });
-      console.log(response.json());
+
       if (response.ok) {
         setMessageSent((prev) => !prev);
       }
@@ -82,7 +88,6 @@ const Chat = () => {
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
-    setIsInputEmpty(event.target.value === "");
   };
 
   return (
@@ -102,12 +107,19 @@ const Chat = () => {
                   key={index}
                   className="w-full p-2 flex flex-col gap-4 items-end justify-start"
                 >
-                  <p className="max-h-min max-w-md text-left py-2 px-4 bg-neutral-700 rounded-md text-neutral-200">
+                  <p className="max-h-min max-w-xl text-left py-2 px-4 bg-neutral-700 rounded-md text-neutral-200">
                     {message.content}
+                    <span className="flex justify-start">
+                      <Moment format="hh:mm:ss" date={message.sent_at}/>
+                    </span>
                   </p>
-                  <p className="max-h-min max-w-md text-left self-start py-2 px-4 bg-neutral-700 rounded-md text-neutral-200">
-                    {message.response}
+                  <p className="max-h-min max-w-xl text-left self-start py-2 px-4 bg-neutral-700 rounded-md text-neutral-200">
+                    <Markdown content={message.response}/>
+                    <span className="flex justify-end">
+                      <Moment add={{seconds: Math.floor(Math.random() * (10 - 3 + 1)) + 3}} format="hh:mm:ss" date={message.sent_at}/>
+                    </span>
                   </p>
+
                 </div>
               ))
           ) : (
@@ -116,6 +128,7 @@ const Chat = () => {
             </h1>
           )}
         </div>
+        {loading ? <span className="text-center text-lg"><HashLoader/></span> : null}
         <form
           onSubmit={handleSubmit}
           className="w-full px-6 flex justify-between items-center border-2 border-neutral-600 rounded-full"

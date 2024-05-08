@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Main from "../LeftSideBar/main";
 import { FaGripLines } from "react-icons/fa6";
 import DragDrop from "../Drag-n-Drop/dragDrop";
 import ReportHistory from "./reportHistory";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux"
 
 const MriDashboard = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -49,9 +49,11 @@ const MriDashboard = () => {
         <span>
           <h1>MRI</h1>
         </span>
-        <DragDrop onDrop={handleDrop} loading={loading}/>
+        <DragDrop onDrop={handleDrop} loading={loading} />
+        {loading && <div className="overlay overlay-hidden">
+          <h1>Loading...</h1></div>}
         <div className="width-30 h-full py-6 flex flex-col border-l border-neutral-600 max-lg:hidden">
-          <ReportHistory />
+          <ReportHistory loading={loading} />
         </div>
       </div>
     </div>
