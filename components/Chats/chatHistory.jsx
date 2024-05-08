@@ -66,7 +66,7 @@ const ChatHistory = () => {
   };
 
   return (
-    <div className="h-full w-full pt-6 px-6 flex flex-col border-t border-neutral-600">
+    <div className="h-full w-full pt-6 px-6 flex flex-col justify-between border-t border-neutral-600">
       <div className="flex items-center justify-between">
         <span className="flex items-center justify-between gap-2">
           <p className="font-medium text-sm text-neutral-500">Chat history</p>
@@ -77,7 +77,7 @@ const ChatHistory = () => {
         <RiDeleteBin5Line className="text-xl text-neutral-500 transition ease-in-out duration-300 delay-75 hover:text-red-600 cursor-pointer" />
       </div>
 
-      <div className="h-96 my-4 flex flex-col gap-4 overflow-y-scroll scrollbar-none">
+      <div className="h-full my-4 flex flex-col gap-4 overflow-y-scroll scrollbar-none">
         {conversations?.map((conversation, key) => (
           <Link key={key} to={`/dashboard/${conversation.chat_id}`}>
             <div className="flex items-center justify-start gap-2">
