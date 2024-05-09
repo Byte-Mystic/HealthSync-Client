@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import Markdown from 'markdown-parser-react';
 import { ReactTyped } from "react-typed";
 import Moment from 'react-moment';
-// import ClipLoader from "react-spinners/ClipLoader";
 import HashLoader from "react-spinners/HashLoader"
 
 const Chat = () => {

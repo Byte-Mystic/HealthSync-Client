@@ -12,7 +12,7 @@ const baseStyle = {
   borderRadius: 8,
   borderColor: "#cccccc",
   borderStyle: "dashed",
-  backgroundColor: "#f5f5f5",
+  // backgroundColor: "#f5f5f5",
   color: "#a4a4a4",
   transition: "border .3s ease-in-out",
   margin: "auto"
@@ -57,7 +57,7 @@ const DragDrop= ({onDrop, loading}) => {
   );
 
   return (
-    <div>
+    <div className="w-3/4">
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         {isDragAccept

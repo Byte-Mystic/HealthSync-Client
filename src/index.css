@@ -20,6 +20,30 @@
   --quad-color: #9DB2BF;
 }
 
+/* Scrollbar CSS */
+
+/* Firefox */
+*{
+  scrollbar-width: auto;
+  scrollbar-color: #5b5961 #a29e9e;
+}
+
+/* Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fafafa;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c0b8d6;
+  border-radius: 12px;
+  border: 18px solid #ffffff;
+}
+
 
 /* Generic CSS */
 

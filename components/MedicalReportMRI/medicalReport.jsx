@@ -46,10 +46,10 @@ const MriDashboard = () => {
         <span className="flex items-center justify-end lg:hidden">
           <FaGripLines className="text-2xl text-gray-500" />
         </span>
-        <span>
-          <h1>MRI</h1>
-        </span>
-        <DragDrop onDrop={handleDrop} loading={loading} />
+        <div className="width-70 flex flex-col items-center justify-center gap-4">
+          <h1 className="text-3xl font-semibold text-white">MRI-Brain Tumor [Detection]</h1>
+          <DragDrop onDrop={handleDrop} loading={loading} />
+        </div>
         {loading && <div className="overlay overlay-hidden">
           <h1>Loading...</h1></div>}
         <div className="width-30 h-full py-6 flex flex-col border-l border-neutral-600 max-lg:hidden">
